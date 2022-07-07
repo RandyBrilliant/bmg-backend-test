@@ -26,7 +26,7 @@ cd bmg-backend-test
 Build each of the microservice Docker container images and launch the microservice environment:
 ```
 docker-compose up -d --build
-docker images 
+docker ps
 ```
 
 ### Step 3.
