@@ -1,0 +1,197 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Test Service API",
+    "description": "This project is intended as the solution to the Boston Makmur Gemilang Python Developer Backend Test. This project takes a hands-on look at microservices project with caching mechanism using Python, Flask, Redis and Docker.",
+    "contact": {
+      "email": "randybrilliant68@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/RANDYBRILLIANT68/bmg-backend-test/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost:5000",
+      "description": "Homeland Episode API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "episodes",
+      "description": "List of Homeland Episodes"
+    }
+  ],
+  "paths": {
+    "/services/{partial-name}": {
+      "get": {
+        "tags": [
+          "episodes"
+        ],
+        "summary": "Get specific episode by using partial name",
+        "description": "By passing in the appropriate partial name, you can search for\navailable episode from the json data.\n",
+        "operationId": "searchEpisode",
+        "parameters": [
+          {
+            "name": "partial-name",
+            "in": "path",
+            "description": "pass a string as the partial name to the url.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EpisodeItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/services/{id}": {
+      "put": {
+        "tags": [
+          "episodes"
+        ],
+        "summary": "Update summary from given episode ID.",
+        "description": "Edit episode summary.",
+        "operationId": "updateSummary",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "pass an integer as the ID to the url.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "description": "pass a string to update the summary.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EpisodeItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EpisodeItem": {
+        "required": [
+          "airdate",
+          "airstamp",
+          "airtime",
+          "id",
+          "links",
+          "name",
+          "number",
+          "runtime",
+          "season",
+          "summary",
+          "type",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "type": "string",
+            "format": "url",
+            "example": "https://api.tvmaze.com/episodes/189"
+          },
+          "airdate": {
+            "type": "string",
+            "format": "date",
+            "example": "2011-10-02"
+          },
+          "airstamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          },
+          "airtime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "example": 189
+          },
+          "name": {
+            "type": "string",
+            "example": "Widget Adapter"
+          },
+          "number": {
+            "type": "integer",
+            "example": 1
+          },
+          "runtime": {
+            "type": "integer",
+            "example": 60
+          },
+          "season": {
+            "type": "integer",
+            "example": 1
+          },
+          "summary": {
+            "type": "string",
+            "example": "<p>In the opener of this \\\"Manchurian Candidate\\\"-like political thriller, a marine rescued after eight years as a POW in Afghanistan returns home a war hero. But a CIA operative suspects he may actually be an enemy agent with a connection to Al Qaeda and part of a plan to commit a terrorist act on U.S. soil.</p>"
+          },
+          "type": {
+            "type": "string",
+            "example": "regular"
+          },
+          "url": {
+            "type": "string",
+            "format": "url",
+            "example": "https://www.tvmaze.com/episodes/189/homeland-1x01-pilot"
+          }
+        }
+      }
+    }
+  }
+}
